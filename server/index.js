@@ -41,10 +41,6 @@ export default class Server {
     // publicRuntimeConfig gets it's default in client/index.js
     const {serverRuntimeConfig = {}, publicRuntimeConfig, assetPrefix, generateEtags} = this.nextConfig
 
-    if (!dev && !fs.existsSync(resolve(this.distDir, BUILD_ID_FILE))) {
-      console.error(`> Could not find a valid build in the '${this.distDir}' directory! Try building your app with 'next build' before starting the server.`)
-      process.exit(1)
-    }
     this.buildId = !dev ? this.readBuildId() : '-'
     this.hotReloader = dev ? this.getHotReloader(this.dir, { quiet, config: this.nextConfig, buildId: this.buildId }) : null
     this.renderOpts = {

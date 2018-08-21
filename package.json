@@ -1,5 +1,5 @@
 {
-  "name": "next",
+  "name": "@piuccio/next",
   "version": "6.1.1",
   "description": "Minimalistic framework for server-rendered React applications",
   "main": "./dist/server/next.js",
@@ -41,6 +41,9 @@
     "lint": "standard 'bin/*' 'client/**/*.js' 'examples/**/*.js' 'lib/**/*.js' 'pages/**/*.js' 'server/**/*.js' 'build/**/*.js' 'test/**/*.js'",
     "prepublish": "npm run release",
     "precommit": "lint-staged"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "standard": {
     "parser": "babel-eslint",
