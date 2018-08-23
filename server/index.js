@@ -15,7 +15,7 @@ import {
 import Router from './router'
 import { getAvailableChunks, isInternalUrl } from './utils'
 import loadConfig from './config'
-import {PHASE_PRODUCTION_SERVER, PHASE_DEVELOPMENT_SERVER, BLOCKED_PAGES, BUILD_ID_FILE} from '../lib/constants'
+import {PHASE_PRODUCTION_SERVER, PHASE_DEVELOPMENT_SERVER, BLOCKED_PAGES} from '../lib/constants'
 import * as asset from '../lib/asset'
 import * as envConfig from '../lib/runtime-config'
 import { isResSent } from '../lib/utils'
@@ -41,7 +41,7 @@ export default class Server {
     // publicRuntimeConfig gets it's default in client/index.js
     const {serverRuntimeConfig = {}, publicRuntimeConfig, assetPrefix, generateEtags} = this.nextConfig
 
-    this.buildId = !dev ? this.readBuildId() : '-'
+    this.buildId = this.nextConfig.buildId || '-'
     this.hotReloader = dev ? this.getHotReloader(this.dir, { quiet, config: this.nextConfig, buildId: this.buildId }) : null
     this.renderOpts = {
       dev,
@@ -412,12 +412,6 @@ export default class Server {
     }
 
     return true
-  }
-
-  readBuildId () {
-    const buildIdPath = join(this.distDir, BUILD_ID_FILE)
-    const buildId = fs.readFileSync(buildIdPath, 'utf8')
-    return buildId.trim()
   }
 
   handleBuildId (buildId, res) {
